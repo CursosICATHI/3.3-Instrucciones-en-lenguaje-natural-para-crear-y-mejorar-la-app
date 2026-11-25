@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instrucciones en lenguaje natural para crear y mejorar la app, la página y las automatizaciones</title>
+<style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #f0f2f5; color: #333; }
+    .slide { width: 100%; max-width: 1024px; margin: 20px auto; background: #fff; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); overflow: hidden; min-height: 500px; display: flex; flex-direction: column; }
+    .slide-header { background: #3d5a96; padding: 18px 30px; display: flex; align-items: center; justify-content: space-between; }
+    .slide-header h2 { color: #fff; font-size: 20px; font-weight: 700; }
+    .slide-header .num { color: rgba(255,255,255,0.6); font-size: 14px; }
+    .slide-body { padding: 30px; flex: 1; }
+    .slide-footer { background: #2e4575; padding: 10px 30px; display: flex; justify-content: space-between; color: rgba(255,255,255,0.7); font-size: 12px; }
+    .portada { min-height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+    .portada-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #3d5a96 0%, #e8755c 50%, #d05a7e 100%); z-index: 0; }
+    .portada .franja1 { position: absolute; bottom: 0; left: 0; right: 0; height: 12px; background: #e8755c; z-index: 1; }
+    .portada .franja2 { position: absolute; top: 0; right: 0; width: 25%; height: 8%; background: #d05a7e; z-index: 1; }
+    .portada .franja3 { position: absolute; bottom: 0; left: 0; width: 10%; height: 18%; background: #d05a7e; z-index: 1; }
+    .portada .franja4 { position: absolute; bottom: 0; right: 0; width: 15%; height: 12%; background: #e8755c; z-index: 1; }
+    .portada-content { position: relative; z-index: 2; padding: 40px; }
+    .portada .campus { color: rgba(255,255,255,0.7); font-size: 13px; letter-spacing: 4px; font-weight: 700; margin-bottom: 40px; }
+    .portada h1 { color: #fff; font-size: 48px; font-weight: 900; line-height: 1.2; margin-bottom: 8px; text-shadow: 3px 3px 12px rgba(0,0,0,0.2); }
+    .portada h1 span { display: block; font-size: 32px; font-weight: 600; }
+    .portada .tema-label { color: rgba(255,255,255,0.85); font-size: 18px; margin-top: 50px; }
+    .portada .tema { color: #fff; font-size: 28px; font-weight: 700; margin-top: 8px; }
+    .portada .instituto { color: rgba(255,255,255,0.75); font-size: 15px; margin-top: 50px; }
+    .portada .fecha { color: rgba(255,255,255,0.55); font-size: 13px; margin-top: 10px; }
+    h3 { color: #3d5a96; font-size: 22px; margin-bottom: 20px; }
+    h4 { color: #3d5a96; font-size: 18px; margin-bottom: 12px; }
+    .block { background: #fdf4f0; border-left: 5px solid #e8755c; padding: 18px 20px; border-radius: 0 10px 10px 0; margin: 15px 0; }
+    .block-title { font-weight: 700; color: #e8755c; margin-bottom: 6px; }
+    .block-blue { background: #eff2f8; border-left: 5px solid #3d5a96; }
+    .block-blue .block-title { color: #3d5a96; }
+    .block-pink { background: #fdf0f4; border-left: 5px solid #d05a7e; }
+    .block-pink .block-title { color: #d05a7e; }
+    .block-vino { background: #fdf0f2; border-left: 5px solid #691b31; }
+    .block-vino .block-title { color: #691b31; }
+    ul, ol { padding-left: 22px; line-height: 2; }
+    li { margin-bottom: 4px; }
+    .columns { display: flex; gap: 30px; }
+    .columns > div { flex: 1; }
+    table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+    th, td { border: 1px solid #ddd; padding: 10px 14px; text-align: left; }
+    th { background: #3d5a96; color: #fff; }
+    tr:nth-child(even) { background: #f8f9fc; }
+    .tag { display: inline-block; background: #3d5a96; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-right: 6px; }
+    .center { text-align: center; }
+    .final { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; text-align: center; }
+    .final h2 { color: #3d5a96; font-size: 32px; margin-bottom: 20px; }
+    .final p { color: #666; font-size: 18px; }
+    .nav-bar { max-width: 1024px; margin: 10px auto; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .nav-bar button { background: #3d5a96; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 13px; transition: all 0.2s; }
+    .nav-bar button:hover { background: #e8755c; transform: translateY(-2px); }
+    .nav-bar button.activo { background: #d05a7e; }
+    .nav-controls { max-width: 1024px; margin: 10px auto; display: flex; gap: 10px; justify-content: center; }
+    .nav-controls button { background: #3d5a96; color: #fff; border: none; padding: 10px 28px; border-radius: 25px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; transition: all 0.2s; }
+    .nav-controls button:hover { background: #e8755c; transform: scale(1.05); }
+    .counter { max-width: 1024px; margin: 5px auto; text-align: center; font-size: 13px; color: #888; }
+    @media (max-width: 768px) {
+        .portada h1 { font-size: 32px; }
+        .portada h1 span { font-size: 24px; }
+        .portada .tema { font-size: 20px; }
+        .columns { flex-direction: column; }
+        .slide-body { padding: 20px; }
+        .slide-header h2 { font-size: 16px; }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="nav-controls">
+    <button onclick="ant()">&#9664; Anterior</button>
+    <button onclick="sig()">Siguiente &#9654;</button>
+</div>
+<div class="counter" id="counter"></div>
+
+<div id="slides-container"></div>
+
+<script>
+const PORTADA = {
+    "etiqueta": "Tema 3.3 — Unidad 3",
+    "tema": "Instrucciones en lenguaje<br>natural para crear y mejorar",
+    "instituto": "Instituto de Capacitación para el Trabajo del Estado de Hidalgo"
+};
+const slides = [
+    {
+        "tipo": "portada"
+    },
+    {
+        "titulo": "Índice",
+        "num": "2 / 31",
+        "body": "<div class=\"columns\"><div><strong style=\"color:#3d5a96;\">1. El encargo</strong><br>- Del deseo al encargo<br>- Los cuatro elementos<br>- Ejemplo<br><br><strong style=\"color:#3d5a96;\">2. Construir</strong><br>- Primera app<br>- Mejorar app<br>- Página del negocio</div><div><strong style=\"color:#3d5a96;\">3. Automatizar</strong><br>- Automatizaciones<br>- Programadas<br>- Skills<br><br><strong style=\"color:#3d5a96;\">4. Trabajar</strong><br>- Plan y goal<br>- Steering y queue<br>- Errores<br><br><strong style=\"color:#3d5a96;\">5. Cerrar</strong><br>- Actividad y resumen</div></div>"
+    },
+    {
+        "titulo": "Objetivo de aprendizaje",
+        "num": "3 / 31",
+        "body": "<p style=\"font-size:17px;line-height:1.7;margin-bottom:12px;\">Al terminar podrás <strong>escribir instrucciones claras para crear, mejorar y automatizar</strong> con Codex.</p><div class=\"block\"><div class=\"block-title\">Lo que sabrás hacer</div><ul style=\"font-size:16px;line-height:2.1;\"><li>Convertir una idea en un encargo completo.</li><li>Pedir una app o una página desde cero.</li><li>Mejorar lo que ya existe sin romperlo.</li><li>Encargar automatizaciones sencillas.</li></ul></div>"
+    },
+    {
+        "titulo": "Del deseo al encargo",
+        "num": "4 / 31",
+        "body": "<p style=\"font-size:17px;line-height:1.7;margin-bottom:12px;\">Una instrucción vaga produce un resultado vago. Un encargo describe <strong>qué quieres y cómo se comprueba</strong>.</p><div class=\"columns\"><div><div class=\"block block-pink\"><div class=\"block-title\">Deseo</div><ul style=\"font-size:16px;line-height:2.1;\"><li>«Quiero una calculadora».</li><li>Sin contexto.</li><li>Sin formato.</li></ul></div></div><div><div class=\"block block-blue\"><div class=\"block-title\">Encargo</div><ul style=\"font-size:16px;line-height:2.1;\"><li>«Calculadora de cotizaciones con precios, IVA y total».</li><li>Con datos.</li><li>Con prueba.</li></ul></div></div></div>"
+    },
+    {
+        "titulo": "Los cuatro elementos",
+        "num": "5 / 31",
+        "body": "<table style=\"font-size:14px;\"><tr><th>Elemento</th><th>Pregunta</th><th>Ejemplo</th></tr><tr><td>Objetivo</td><td>¿Qué lograr?</td><td>Calculadora de cotizaciones</td></tr><tr><td>Contexto</td><td>¿Qué archivos o datos?</td><td>Lista de precios de datos/</td></tr><tr><td>Salida</td><td>¿Qué formato?</td><td>Una página con tabla y total</td></tr><tr><td>Límites</td><td>¿Qué no tocar?</td><td>Colores y logotipo</td></tr></table>"
+    },
+    {
+        "titulo": "El quinto dato",
+        "num": "6 / 31",
+        "body": "<p style=\"font-size:17px;line-height:1.7;margin-bottom:12px;\">Añade una condición para evitar invenciones: <strong>qué hacer si falta información</strong>.</p><div class=\"block block-vino\"><div class=\"block-title\">Ejemplo</div>«Si un precio no está en la lista, muéstralo como pendiente y pregúntame; no lo inventes».</div><p style=\"font-size:15px;line-height:1.7;margin-bottom:12px;\">Esa frase resuelve la mitad de los errores de datos.</p>"
+    },
+    {
+        "titulo": "Ejemplo completo",
+        "num": "7 / 31",
+        "body": "<div class=\"block block-vino\"><div class=\"block-title\">Encargo</div>«Crea una página llamada cotizador.html para mi florería. Menú desplegable con los arreglos de precios.json, campo de cantidad y cálculo de subtotal, IVA y total. Usa los colores de estilos.css. Debe verse bien en celular. Si falta un precio, márcalo pendiente. Al terminar, abre la página y verifica los totales».</div>"
+    },
+    {
+        "titulo": "Tu primera app",
+        "num": "8 / 31",
+        "body": "<ol style=\"font-size:16px;line-height:2.1;\"><li>Prepara los datos en un archivo.</li><li>Describe la app con los cuatro elementos.</li><li>Revisa el plan.</li><li>Genera la primera versión.</li><li>Prueba con tres casos.</li><li>Pide mejoras una por una.</li></ol>"
+    },
+    {
+        "titulo": "Pasos del cotizador",
+        "num": "9 / 31",
+        "body": "<ol style=\"font-size:16px;line-height:2.1;\"><li>Crea precios.json con diez productos.</li><li>Pide la página con tabla y totales.</li><li>Prueba dos productos de 100: total 232.</li><li>Agrega nombre del cliente y fecha.</li><li>Pide el botón de imprimir.</li><li>Verifica la impresión.</li></ol><div class=\"block block-blue\"><div class=\"block-title\">Resultado</div>Una app funcional en menos de una hora.</div>"
+    },
+    {
+        "titulo": "Mejorar una app existente",
+        "num": "10 / 31",
+        "body": "<p style=\"font-size:17px;line-height:1.7;margin-bottom:12px;\">La mayoría del trabajo real es mejorar lo que ya hay.</p><ul style=\"font-size:16px;line-height:2.1;\"><li>Indica el archivo o la sección exacta.</li><li>Describe lo actual y lo deseado.</li><li>Pide no modificar lo que funciona.</li><li>Solicita una prueba después.</li><li>Revisa el diff.</li></ul>"
+    },
+    {
+        "titulo": "Ejemplo de mejora",
+        "num": "11 / 31",
+        "body": "<div class=\"block block-vino\"><div class=\"block-title\">Encargo</div>«En index.html, la sección de servicios se ve mal en el celular: las tarjetas se salen. Corrige el diseño a una columna y deja visible el botón de WhatsApp. No cambies textos ni colores».</div><div class=\"block block-blue\"><div class=\"block-title\">Por qué funciona</div>Archivo, problema, resultado y límites.</div>"
+    },
+    {
+        "titulo": "Crear la página del negocio",
+        "num": "12 / 31",
+        "body": "<ol style=\"font-size:16px;line-height:2.1;\"><li>Reúne textos, precios, horario y fotos.</li><li>Define las secciones.</li><li>Pide la página de una sola vista.</li><li>Revisa la vista previa.</li><li>Ajusta textos y botones.</li><li>Guarda la versión final.</li></ol>"
+    },
+    {
+        "titulo": "Secciones de la página",
+        "num": "13 / 31",
+        "body": "<table style=\"font-size:14px;\"><tr><th>Sección</th><th>Contenido</th></tr><tr><td>Inicio</td><td>Nombre, promesa y botón de contacto</td></tr><tr><td>Servicios</td><td>Qué ofreces y para quién</td></tr><tr><td>Precios</td><td>Lista o rangos</td></tr><tr><td>Horario y ubicación</td><td>Mapa y días</td></tr><tr><td>Contacto</td><td>WhatsApp y redes</td></tr><tr><td>Preguntas frecuentes</td><td>Dudas repetidas</td></tr></table>"
+    },
+    {
+        "titulo": "Automatizaciones",
+        "num": "14 / 31",
+        "body": "<p style=\"font-size:17px;line-height:1.7;margin-bottom:12px;\">Automatizar es convertir una tarea repetitiva en una receta que se ejecuta sola o con un clic.</p><ul style=\"font-size:16px;line-height:2.1;\"><li>Hoja que calcula cotizaciones.</li><li>Formulario que registra pedidos.</li><li>Reporte semanal de ventas.</li><li>Revisión de enlaces roscos.</li><li>Catálogo actualizado.</li></ul>"
+    },
+    {
+        "titulo": "Ejemplo de automatización",
+        "num": "15 / 31",
+        "body": "<div class=\"block block-vino\"><div class=\"block-title\">Encargo</div>«Crea una hoja que lea productos.csv, calcule precio con margen del 35% e IVA, y marque en rojo los productos con margen menor al 20%. Agrega una hoja de instrucciones».</div><p style=\"font-size:15px;line-height:1.7;margin-bottom:12px;\">Empieza por la automatización más simple y comprueba el resultado a mano.</p>"
+    },
+    {
+        "titulo": "Plan y goal",
+        "num": "16 / 31",
+        "body": "<p style=\"font-size:17px;line-height:1.7;margin-bottom:12px;\">Para tareas grandes, usa el plan antes de editar.</p><ul style=\"font-size:16px;line-height:2.1;\"><li>Escribe /plan para investigar y proponer.</li><li>Revisa y corrige el plan.</li><li>Avanza por etapas.</li><li>Usa /goal para objetivos largos.</li><li>Valida cada etapa.</li></ul>"
+    },
+    {
+        "titulo": "Steering y queue",
+        "num": "17 / 31",
+        "body": "<div class=\"columns\"><div><div class=\"block block-blue\"><div class=\"block-title\">Steering</div><ul style=\"font-size:16px;line-height:2.1;\"><li>Cambia el trabajo en curso.</li><li>Útil para corregir.</li><li>Se envía de inmediato.</li></ul></div></div><div><div class=\"block\"><div class=\"block-title\">Queue</div><ul style=\"font-size:16px;line-height:2.1;\"><li>Guarda el mensaje.</li><li>Se ejecuta después.</li><li>Ideal para ideas.</li></ul></div></div></div>"
+    },
+    {
+        "titulo": "Skills",
+        "num": "18 / 31",
+        "body": "<p style=\"font-size:17px;line-height:1.7;margin-bottom:12px;\">Una skill enseña al agente a resolver una tarea de una forma específica.</p><ul style=\"font-size:16px;line-height:2.1;\"><li>Incluye instrucciones y recursos.</li><li>Se activa por la descripción.</li><li>Se puede invocar explícitamente.</li><li>Se comparte en el repositorio.</li><li>Solo usa fuentes confiables.</li></ul>"
+    },
+    {
+        "titulo": "Automatizaciones programadas",
+        "num": "19 / 31",
+        "body": "<ul style=\"font-size:16px;line-height:2.1;\"><li>Se ejecutan con una frecuencia definida.</li><li>Corren sin tu equipo encendido.</li><li>El resultado queda para revisión.</li><li>Útiles para mantenimiento.</li><li>Revisa la primera ejecución.</li></ul>"
+    },
+    {
+        "titulo": "Errores comunes",
+        "num": "20 / 31",
+        "body": "<table style=\"font-size:14px;\"><tr><th>Error</th><th>Causa</th><th>Solución</th></tr><tr><td>«Hazlo bonito»</td><td>Sin criterio</td><td>Describir el cambio</td></tr><tr><td>Todo a la vez</td><td>Pérdida de foco</td><td>Por etapas</td></tr><tr><td>No decir qué no tocar</td><td>Rompe lo que servía</td><td>Límites explícitos</td></tr><tr><td>No indicar archivos</td><td>Trabaja con supuestos</td><td>Mencionar rutas</td></tr><tr><td>Aceptar sin probar</td><td>Errores al cliente</td><td>Probar siempre</td></tr></table>"
+    },
+    {
+        "titulo": "Buenas prácticas",
+        "num": "21 / 31",
+        "body": "<ul style=\"font-size:16px;line-height:2.1;\"><li>Escribe el resultado, no los pasos.</li><li>Usa ejemplos con números reales.</li><li>Indica el formato esperado.</li><li>Pide una cosa por mensaje.</li><li>Guarda el encargo que funcionó.</li></ul>"
+    },
+    {
+        "titulo": "Reutilizar un encargo",
+        "num": "22 / 31",
+        "body": "<ol style=\"font-size:16px;line-height:2.1;\"><li>Copia la instrucción exacta.</li><li>Anota los ajustes.</li><li>Define los archivos de entrada.</li><li>Fija el resultado esperado.</li><li>Programa si se repite.</li></ol>"
+    },
+    {
+        "titulo": "Revisar avances",
+        "num": "23 / 31",
+        "body": "<ul style=\"font-size:16px;line-height:2.1;\"><li>Pide un borrador antes del entregable completo.</li><li>Revisa la estructura.</li><li>Corrige el rumbo temprano.</li><li>Sé específico en los ajustes.</li></ul>"
+    },
+    {
+        "titulo": "Ejemplo completo",
+        "num": "24 / 31",
+        "body": "<ol style=\"font-size:15px;line-height:2.1;\"><li>Datos: precios.json con diez productos.</li><li>Encargo: cotizador con IVA y total.</li><li>Plan: revisar y ajustar.</li><li>Prueba: dos productos de 100 = 232.</li><li>Mejora: imprimir solo la cotización.</li><li>Revisión: /review enfocado en cálculos.</li></ol><div class=\"block block-blue\"><div class=\"block-title\">Resultado</div>App lista para usar con tu negocio.</div>"
+    },
+    {
+        "titulo": "Actividad",
+        "num": "25 / 31",
+        "body": "<p style=\"font-size:17px;line-height:1.7;margin-bottom:12px;\"><strong>Meta:</strong> lograr un cambio real de principio a fin.</p><ol style=\"font-size:16px;line-height:2.1;\"><li>Elige una mejora pequeña.</li><li>Escribe el encargo con los cuatro elementos.</li><li>Ejecuta y prueba antes y después.</li><li>Documenta el resultado.</li><li>Guarda la instrucción.</li></ol><div class=\"block block-blue\"><div class=\"block-title\">Entregable</div>El cambio funcionando y la instrucción guardada.</div>"
+    },
+    {
+        "titulo": "Rúbrica",
+        "num": "26 / 31",
+        "body": "<table style=\"font-size:14px;\"><tr><th>Criterio</th><th>Peso</th><th>Qué se observa</th></tr><tr><td>Claridad del encargo</td><td>30%</td><td>Cuatro elementos</td></tr><tr><td>Resultado</td><td>30%</td><td>Funciona y se prueba</td></tr><tr><td>Límites</td><td>20%</td><td>No rompe lo que servía</td></tr><tr><td>Documentación</td><td>20%</td><td>Instrucción y evidencia</td></tr></table>"
+    },
+    {
+        "titulo": "Resumen",
+        "num": "27 / 31",
+        "body": "<ul style=\"font-size:17px;line-height:2.1;\"><li>El encargo tiene objetivo, contexto, salida y límites.</li><li>La primera app debe ser pequeña y verificable.</li><li>Mejorar es más común que crear.</li><li>Las automatizaciones empiezan simples.</li><li>El plan y la revisión evitan retrabajos.</li></ul><div class=\"block center\" style=\"margin-top:15px;\"><div class=\"block-title\">Frase final</div><em>Pedir bien es la habilidad central.</em></div>"
+    },
+    {
+        "titulo": "Autoevaluación",
+        "num": "28 / 31",
+        "body": "<ol style=\"font-size:17px;line-height:2.1;\"><li>¿Cuáles son los cuatro elementos?</li><li>¿Para qué sirve /plan?</li><li>¿Qué diferencia hay entre steering y queue?</li><li>¿Qué es una skill?</li><li>¿Cómo evitas datos inventados?</li></ol>"
+    },
+    {
+        "titulo": "Glosario",
+        "num": "29 / 31",
+        "body": "<table style=\"font-size:14px;\"><tr><th>Término</th><th>Significado</th></tr><tr><td>Encargo</td><td>Instrucción con resultado verificable.</td></tr><tr><td>Plan</td><td>Propuesta de pasos antes de editar.</td></tr><tr><td>Skill</td><td>Paquete de instrucciones para una tarea.</td></tr><tr><td>Automatización</td><td>Tarea que corre sola.</td></tr><tr><td>Diff</td><td>Cambios realizados.</td></tr></table>"
+    },
+    {
+        "titulo": "Recursos y consejos",
+        "num": "30 / 31",
+        "body": "<div class=\"block block-blue\"><div class=\"block-title\">Documentación</div><ul style=\"font-size:16px;line-height:2.1;\"><li>Prompting en Codex (OpenAI)</li><li>Guía de inicio</li><li>Skills y automatizaciones</li><li>Aplicación de escritorio</li></ul></div><ul style=\"font-size:16px;line-height:2.1;\"><li>Practica 20 minutos al día.</li><li>Guarda tus encargos.</li><li>Revisa siempre el resultado.</li><li>Documenta las reglas nuevas.</li></ul>"
+    },
+    {
+        "titulo": "Gracias por su atención",
+        "num": "31 / 31",
+        "body": "<div class=\"final\">\n            <h2>¿Dudas o comentarios?</h2>\n            <p>Participa en el foro del tema</p>\n            <p style=\"margin-top:30px;color:#3d5a96;font-weight:700;\">ICATHI 4.0 — Inteligencia Artificial para tu Negocio</p>\n        </div>"
+    }
+];
+
+let actual = 0;
+
+function renderSlide(i) {
+    const s = slides[i];
+    const c = document.getElementById('slides-container');
+    if (s.tipo === 'portada') {
+        c.innerHTML = '<div class="slide portada">' +
+            '<div class="portada-bg"></div>' +
+            '<div class="franja1"></div><div class="franja2"></div><div class="franja3"></div><div class="franja4"></div>' +
+            '<div class="portada-content">' +
+            '<div class="campus">CAMPUS VIRTUAL</div>' +
+            '<h1>Inteligencia Artificial<span>para tu Negocio</span></h1>' +
+            '<div class="tema-label">' + PORTADA.etiqueta + '</div>' +
+            '<div class="tema">' + PORTADA.tema + '</div>' +
+            '<div class="instituto">' + PORTADA.instituto + '</div>' +
+            '<div class="fecha">2026</div>' +
+            '</div></div>';
+    } else {
+        c.innerHTML = '<div class="slide">' +
+            '<div class="slide-header"><h2>' + s.titulo + '</h2><span class="num">' + s.num + '</span></div>' +
+            '<div class="slide-body">' + s.body + '</div>' +
+            '<div class="slide-footer"><span>ICATHI 4.0</span><span>' + s.num + '</span></div>' +
+            '</div>';
+    }
+    document.getElementById('counter').textContent = 'Diapositiva ' + (i + 1) + ' de ' + slides.length;
+    document.querySelectorAll('.nav-bar button').forEach((b, idx) => {
+        b.classList.toggle('activo', idx === i);
+    });
+}
+
+function sig() {
+    if (actual < slides.length - 1) { actual++; renderSlide(actual); }
+}
+function ant() {
+    if (actual > 0) { actual--; renderSlide(actual); }
+}
+
+// Nav bar
+document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.createElement('div');
+    nav.className = 'nav-bar';
+    slides.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.textContent = i + 1;
+        b.onclick = () => { actual = i; renderSlide(i); };
+        nav.appendChild(b);
+    });
+    document.body.insertBefore(nav, document.querySelector('.nav-controls'));
+    renderSlide(0);
+});
+</script>
+
+</body>
+</html>
